@@ -11,7 +11,7 @@ services:
       - ./concourse-data:/database
 
   concourse-web:
-    image: concourse/concourse:3.9.2
+    image: concourse/concourse:3.14.1
     links: [concourse-db]
     command: web
     ports: ["9095:8080"]
@@ -26,13 +26,20 @@ services:
 
 
   concourse-worker-1:
-    image: concourse/concourse:3.9.2
+    image: concourse/concourse:3.14.1
     privileged: true
     links: [concourse-web]
     command: worker
     volumes: ["./keys/worker:/concourse-keys"]
     environment:
-      CONCOURSE_TSA_HOST: concourse-web
+      CONCOURSE_TSA_HOST: concourse-web:2222
       CONCOURSE_BAGGAGECLAIM_DRIVER: naive
 
-
+  
+  minio:
+    image: minio/minio
+    environment:
+      MINIO_SECRET_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+      MINIO_ACCESS_KEY: AKIAIOSFODNN7EXAMPLE
+    volumes: ["./data:/data", "./minio-config:/root/.minio"]
+    command: server /data
