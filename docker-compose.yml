@@ -43,3 +43,11 @@ services:
       MINIO_ACCESS_KEY: AKIAIOSFODNN7EXAMPLE
     volumes: ["./data:/data", "./minio-config:/root/.minio"]
     command: server /data
+
+  registry:
+    restart: always
+    image: registry:2
+    ports:
+      - 5000:5000
+    volumes:
+      - ./registry-data:/var/lib/registry
