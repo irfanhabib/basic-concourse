@@ -11,8 +11,8 @@ services:
       - ./concourse-data:/database
 
   concourse-web:
-    image: concourse/concourse:3.14.1
-    links: [concourse-db]
+    image: concourse/concourse:4.2.1
+    links: [concourse-db, minio, registry]
     command: web
     ports: ["9095:8080"]
     volumes: ["./keys/web:/concourse-keys"]
@@ -26,9 +26,9 @@ services:
 
 
   concourse-worker-1:
-    image: concourse/concourse:3.14.1
+    image: concourse/concourse:4.2.1
     privileged: true
-    links: [concourse-web]
+    links: [concourse-web, minio, registry]
     command: worker
     volumes: ["./keys/worker:/concourse-keys"]
     environment:
