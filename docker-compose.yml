@@ -22,8 +22,7 @@ services:
     - CONCOURSE_POSTGRES_PASSWORD=concourse_pass
     - CONCOURSE_POSTGRES_DATABASE=concourse
     - CONCOURSE_EXTERNAL_URL=http://10.86.1.160:9095
-    - CONCOURSE_BASIC_AUTH_USERNAME=concourse
-    - CONCOURSE_BASIC_AUTH_PASSWORD=changeme
+    - CONCOURSE_ADD_LOCAL_USER=concourse:changeme
     - CONCOURSE_MAIN_TEAM_ALLOW_ALL_USERS=true
 
   concourse-worker:
