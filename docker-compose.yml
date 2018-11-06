@@ -2,6 +2,7 @@ version: '3'
 services: 
   concourse-db:
     image: postgres
+    privileged: true
     environment:
     - POSTGRES_DB=concourse
     - POSTGRES_PASSWORD=concourse_pass
