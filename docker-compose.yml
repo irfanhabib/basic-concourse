@@ -2,6 +2,7 @@ version: '2'
 services: 
   concourse-db:
     image: postgres:9.5
+    privileged: true
     environment:
       POSTGRES_DB: concourse
       POSTGRES_USER: concourse
@@ -13,6 +14,7 @@ services:
   concourse-web:
     image: concourse/concourse:3.14.0
     links: [concourse-db, minio, registry]
+    privileged: true
     command: web
     ports: ["9095:8080"]
     volumes: ["./keys/web:/concourse-keys"]
